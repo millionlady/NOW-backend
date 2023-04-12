@@ -1,0 +1,23 @@
+package com.now.backend.contoller;
+
+import com.now.backend.model.StudentList;
+import com.now.backend.service.StudentListService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RequestMapping(value = "/students")
+@RestController
+public class StudentListController {
+   private final StudentListService studentListService;
+
+    public StudentListController(StudentListService studentListService) {
+        this.studentListService = studentListService;
+    }
+    @GetMapping(value = "/studentList")
+    public List<StudentList> getStudentList() {
+        return this.studentListService.getStudenList();
+    }
+}
