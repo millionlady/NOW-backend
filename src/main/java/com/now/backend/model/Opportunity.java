@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class Opportunity {
-    private int id;
+    private Integer id;
     private String title;
     private String description;
     private String image;
