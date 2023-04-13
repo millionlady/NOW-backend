@@ -1,7 +1,8 @@
-package com.now.backend.controller;
+package com.now.backend.controllers;
 
-import com.now.backend.model.Onboarding;
-import com.now.backend.service.OnboardingService;
+import com.now.backend.models.Onboarding;
+import com.now.backend.models.OnboardingMetadata;
+import com.now.backend.services.OnboardingService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +16,14 @@ public class OnboardingController {
         this.onboardingService = onboardingService;
     }
 
+    @GetMapping
+    public OnboardingMetadata getMetadata(){
+        return this.onboardingService.getMetadata();
+    }
+
     @PostMapping
-    public Onboarding postOnboarding(@Validated @RequestBody Onboarding onboarding) {
+    @Validated
+    public Onboarding postOnboarding(@RequestBody Onboarding onboarding) {
         return OnboardingService.onboardingForm(onboarding);
     }
 }
