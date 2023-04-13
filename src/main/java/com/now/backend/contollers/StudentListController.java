@@ -1,7 +1,7 @@
-package com.now.backend.contoller;
+package com.now.backend.contollers;
 
-import com.now.backend.model.StudentList;
-import com.now.backend.service.StudentListService;
+import com.now.backend.models.StudentList;
+import com.now.backend.services.StudentListService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

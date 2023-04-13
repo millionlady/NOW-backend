@@ -1,6 +1,6 @@
-package com.now.backend.service;
+package com.now.backend.services;
 
-import com.now.backend.model.StudentList;
+import com.now.backend.models.StudentList;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
