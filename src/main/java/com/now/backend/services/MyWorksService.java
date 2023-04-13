@@ -1,8 +1,7 @@
-package com.now.backend.service;
+package com.now.backend.services;
 
-import com.now.backend.model.MyWorks;
+import com.now.backend.models.MyWorks;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +23,5 @@ public class MyWorksService {
 
         return myWorksList;
     }
-
-
 }
 
