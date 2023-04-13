@@ -1,6 +1,6 @@
-package com.now.backend.service;
+package com.now.backend.services;
 
-import com.now.backend.model.Opportunity;
+import com.now.backend.models.Opportunity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

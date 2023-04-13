@@ -1,4 +1,4 @@
-package com.now.backend.model;
+package com.now.backend.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

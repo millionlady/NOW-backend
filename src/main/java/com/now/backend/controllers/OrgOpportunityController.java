@@ -1,7 +1,7 @@
-package com.now.backend.controller;
+package com.now.backend.controllers;
 
-import com.now.backend.model.Opportunity;
-import com.now.backend.service.OrgOpportunityService;
+import com.now.backend.models.Opportunity;
+import com.now.backend.services.OrgOpportunityService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
