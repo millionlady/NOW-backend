@@ -1,6 +1,5 @@
 package com.now.backend.models;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.validation.annotation.Validated;

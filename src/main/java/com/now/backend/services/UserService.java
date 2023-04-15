@@ -1,6 +1,5 @@
 package com.now.backend.services;
 
-
 import com.now.backend.models.UpdateProfileDto;
 import com.now.backend.models.UserDto;
 import org.springframework.stereotype.Service;
