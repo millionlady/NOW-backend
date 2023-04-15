@@ -1,6 +1,5 @@
 package com.now.backend.controllers;
 
-
 import com.now.backend.models.LoginDto;
 import com.now.backend.models.RegisterDto;
 import com.now.backend.services.AuthService;
@@ -28,6 +27,4 @@ public class AuthController {
     public String register(@RequestBody RegisterDto registerDto) {
         return this.authService.register(registerDto);
     }
-
-
 }
