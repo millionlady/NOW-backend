@@ -9,7 +9,6 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class OnboardingMetadata {
-
     private List<Integer> universityYears;
     private List<String> organizations;
 }

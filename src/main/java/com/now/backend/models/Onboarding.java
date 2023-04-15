@@ -24,5 +24,4 @@ public class Onboarding {
     private double gpa;
     @NotNull
     private String uploadImage;
-
 }
