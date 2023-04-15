@@ -1,4 +1,4 @@
-package com.now.backend.contollers;
+package com.now.backend.controllers;
 
 import com.now.backend.models.StudentList;
 import com.now.backend.services.StudentListService;
