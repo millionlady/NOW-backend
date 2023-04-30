@@ -16,7 +16,6 @@ import lombok.Setter;
 public class Onboarding {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Integer id;
 
     @Column(name = "university_year")
@@ -39,5 +38,30 @@ public class Onboarding {
 
     @Column(name = "upload_image")
     private String uploadImage;
+
+    @Entity
+    @Table(name = "users")
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public class User {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private long id;
+        @Column(name = "full_name", nullable = false)
+        private String fullName;
+
+        @Column(name = "phoneNumber", nullable = false)
+        private String phoneNumber;
+
+        @Column(name = "email", unique = true, nullable = false)
+        private String email;
+        private String password;
+
+        @OneToOne(cascade = CascadeType.ALL)
+        @JoinColumn(name = "onboarding_id", referencedColumnName = "id")
+        private Onboarding onboarding;
+    }
 }
 
