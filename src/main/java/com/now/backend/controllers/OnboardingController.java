@@ -2,7 +2,9 @@ package com.now.backend.controllers;
 
 import com.now.backend.models.OnboardingDto;
 import com.now.backend.models.OnboardingMetadataDto;
+import com.now.backend.repositories.OnboardingRepository;
 import com.now.backend.services.OnboardingService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,9 +13,12 @@ import org.springframework.web.bind.annotation.*;
 
 public class OnboardingController {
     private final OnboardingService onboardingService;
+    private final OnboardingRepository onboardingRepository;
 
-    public OnboardingController(OnboardingService onboardingService){
+    @Autowired
+    public OnboardingController(OnboardingService onboardingService, OnboardingRepository onboardingRepository) {
         this.onboardingService = onboardingService;
+        this.onboardingRepository = onboardingRepository;
     }
 
     @GetMapping
@@ -24,6 +29,7 @@ public class OnboardingController {
     @PostMapping
     @Validated
     public OnboardingDto postOnboarding(@RequestBody OnboardingDto onboardingDto) {
-        return OnboardingService.onboardingForm(onboardingDto);
+        OnboardingService onboardingService = new OnboardingService(onboardingRepository);
+        return onboardingService.createOnboarding(onboardingDto);
     }
 }

@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.jetbrains.annotations.NotNull;
-
 
 @Entity
 @Table(name = "onboarding")
@@ -18,31 +16,28 @@ import org.jetbrains.annotations.NotNull;
 public class Onboarding {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name = "id")
+    private Integer id;
 
-    @Column(name = "universityYear")
-    private int universityYear;
+    @Column(name = "university_year")
+    private Integer universityYear;
 
     @Column(name = "organization")
-    @NotNull
     private String organization;
 
-    @Column(name = "shortBio")
-    @NotNull
+    @Column(name = "short_bio")
     private String shortBio;
 
     @Column(name = "certificates")
-    @NotNull
     private String certificates;
 
-    @Column(name = "linkedinUrl")
-    @NotNull
+    @Column(name = "linkedin_url")
     private String linkedinUrl;
 
     @Column(name = "gpa")
     private double gpa;
 
-    @Column(name = "uploadImage")
-    @NotNull
+    @Column(name = "upload_image")
     private String uploadImage;
 }
+
