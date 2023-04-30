@@ -10,7 +10,7 @@ import org.springframework.validation.annotation.Validated;
 @Setter
 @AllArgsConstructor
 @Validated
-public class Onboarding {
+public class OnboardingDto {
     private int id;
     private int universityYear;
     @NotNull

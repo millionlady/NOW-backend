@@ -1,6 +1,6 @@
 package com.now.backend.controllers;
 
-import com.now.backend.models.MyWorks;
+import com.now.backend.models.MyWorksDto;
 import com.now.backend.services.MyWorksService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +17,7 @@ public class MyWorksController {
     }
 
     @GetMapping
-    public List<MyWorks> getMyWorks() {
+    public List<MyWorksDto> getMyWorks() {
 
         return myWorksService.getMyWorks();
     }

@@ -1,6 +1,6 @@
 package com.now.backend.services;
 
-import com.now.backend.models.MyWorks;
+import com.now.backend.models.MyWorksDto;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,18 +9,18 @@ import java.util.List;
 
 public class MyWorksService {
 
-    public List<MyWorks> getMyWorks() {
-        List<MyWorks> myWorksList = new ArrayList<>();
-        MyWorks studentWorks = new MyWorks("Desing1", "MOP", "03.01.2023",
+    public List<MyWorksDto> getMyWorks() {
+        List<MyWorksDto> myWorksDtoList = new ArrayList<>();
+        MyWorksDto studentWorks = new MyWorksDto("Desing1", "MOP", "03.01.2023",
                 50, "APPROVED");
-        myWorksList.add(studentWorks);
-        MyWorks studentWorks2 = new MyWorks("Desing2", "MOP", "04.01.2023",
+        myWorksDtoList.add(studentWorks);
+        MyWorksDto studentWorks2 = new MyWorksDto("Desing2", "MOP", "04.01.2023",
                 60, "APPROVED");
-        myWorksList.add(studentWorks2);
-        MyWorks studentWorks3 = new MyWorks("Desing3", "MOP", "05.01.2023",
+        myWorksDtoList.add(studentWorks2);
+        MyWorksDto studentWorks3 = new MyWorksDto("Desing3", "MOP", "05.01.2023",
                 55, "APPROVED");
-        myWorksList.add(studentWorks3);
+        myWorksDtoList.add(studentWorks3);
 
-        return myWorksList;
+        return myWorksDtoList;
     }
 }

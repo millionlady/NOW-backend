@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 
-public class MyWorks {
+public class MyWorksDto {
     private String opportunity;
     private String organization;
     private String dateCreated;

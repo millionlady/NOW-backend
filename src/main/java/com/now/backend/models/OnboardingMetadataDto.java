@@ -8,7 +8,7 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-public class OnboardingMetadata {
+public class OnboardingMetadataDto {
     private List<Integer> universityYears;
     private List<String> organizations;
 }
