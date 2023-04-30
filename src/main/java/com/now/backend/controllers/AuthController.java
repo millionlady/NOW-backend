@@ -2,6 +2,7 @@ package com.now.backend.controllers;
 
 import com.now.backend.models.LoginDto;
 import com.now.backend.models.RegisterDto;
+import com.now.backend.models.entities.User;
 import com.now.backend.services.AuthService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,12 +20,12 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginDto loginDto) {
+    public User login(@RequestBody LoginDto loginDto) {
         return this.authService.login(loginDto);
     }
 
     @PostMapping("/register")
-    public String register(@RequestBody RegisterDto registerDto) {
+    public User register(@RequestBody RegisterDto registerDto) {
         return this.authService.register(registerDto);
     }
 }
