@@ -1,6 +1,6 @@
 package com.now.backend.controllers;
 
-import com.now.backend.models.Opportunity;
+import com.now.backend.models.OpportunityDto;
 import com.now.backend.services.OrgOpportunityService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,15 +17,15 @@ public class OrgOpportunityController {
     }
 
     @GetMapping(value = "/opportunity")
-    public List<Opportunity> getOpportunity() {
+    public List<OpportunityDto> getOpportunity() {
         return orgOpportunityService.getOpportunity();
     }
     @GetMapping(value = "/{id}")
-    public Opportunity getOpportunityId(@PathVariable int id) {
+    public OpportunityDto getOpportunityId(@PathVariable int id) {
         return orgOpportunityService.getOpportunityId(id);
     }
     @PostMapping
-    public Opportunity postOpportunity(@RequestBody Opportunity opportunity) {
+    public OpportunityDto postOpportunity(@RequestBody OpportunityDto opportunity) {
         return orgOpportunityService.createOpportunity(opportunity);
     }
 }

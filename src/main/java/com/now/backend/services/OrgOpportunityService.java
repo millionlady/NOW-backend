@@ -1,6 +1,8 @@
 package com.now.backend.services;
 
-import com.now.backend.models.Opportunity;
+import com.now.backend.models.OpportunityDto;
+import com.now.backend.models.entities.Opportunity;
+import com.now.backend.repositories.OpportunityRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -8,24 +10,33 @@ import java.util.List;
 @Service
 public class OrgOpportunityService {
 
-    public Opportunity createOpportunity(Opportunity opportunity) {
-        opportunity.setId(5);
-        opportunity.setTitle("Marketing Specialist");
-        opportunity.setDescription("Develop marketing campaigns to promote the app to the student community, such as through social media, email marketing, and event sponsorships.");
-        opportunity.setImage("https://img.freepik.com/premium-vector/marketing-specialist-typographic-header-advertising-marketing-concept-business-strategy-communucation-with-customer-isolated-flat-vector-illustration_613284-2135.jpg?w=2000");
+    private final OpportunityRepository opportunityRepository;
+
+    public OrgOpportunityService(OpportunityRepository opportunityRepository) {
+        this.opportunityRepository = opportunityRepository;
+    }
+
+    public OpportunityDto createOpportunity(OpportunityDto opportunity) {
+        Opportunity newOpportunity = new Opportunity();
+        newOpportunity.setTitle(opportunity.getTitle());
+        newOpportunity.setDescription(opportunity.getDescription());
+        newOpportunity.setImage(opportunity.getImage());
+        opportunityRepository.save(newOpportunity);
+        opportunity.setId(newOpportunity.getId());
         return opportunity;
     }
-    public List<Opportunity> getOpportunity() {
-        List<Opportunity> opportunityList = new ArrayList<>();
-        Opportunity appDeveloper = new Opportunity(1, "App Developer", "Design and develop the student volunteering app to make it user-friendly and easy to navigate.", "https://buildfire.com/wp-content/uploads/2017/10/become-mobile-app-developer.jpg");
-        opportunityList.add(appDeveloper);
-        Opportunity contentCreator = new Opportunity(2, "Content Creator", "Create engaging and informative content for the app, including blog posts, news articles, and social media updates.", "https://www.weidert.com/hubfs/content-creator-tips-feature-image.webp");
-        opportunityList.add(contentCreator);
+    public List<OpportunityDto> getOpportunity() {
+        List<OpportunityDto> opportunityList = new ArrayList<>();
+        List<Opportunity> opportunities = opportunityRepository.findAll();
+        for (Opportunity opportunity : opportunities) {
+            opportunityList.add(new OpportunityDto(opportunity.getId(),opportunity.getTitle(), opportunity.getDescription(), opportunity.getImage()));
+        }
 
         return opportunityList;
     }
 
-    public Opportunity getOpportunityId(int id) {
-        return new Opportunity(id, "App Developer", "Design and develop the student volunteering app to make it user-friendly and easy to navigate.", "https://buildfire.com/wp-content/uploads/2017/10/become-mobile-app-developer.jpg");
+    public OpportunityDto getOpportunityId(long id) {
+        opportunityRepository.getById(id);
+        return new OpportunityDto(id, "App Developer", "Design and develop the student volunteering app to make it user-friendly and easy to navigate.", "https://buildfire.com/wp-content/uploads/2017/10/become-mobile-app-developer.jpg");
     }
 }
