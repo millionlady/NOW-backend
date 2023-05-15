@@ -2,47 +2,50 @@ package com.now.backend.services;
 
 import com.now.backend.models.UpdateProfileDto;
 import com.now.backend.models.UserDto;
+import com.now.backend.models.entities.User;
+import com.now.backend.repositories.UserRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UserService {
-
-    private UserDto testUser = new UserDto(1L, "Lejla Omerovic", "lejla@sst.com", "pass123", "SST University", 1, "I am Lejla, 3. year student", "1. place coding competition, 1. place math competition", "https://www.linkedin.com/in/lejla-omerovic", "https://storage.radiosarajevo.ba/image/478820/1180x732/lejla_omerovic_ministry_of_programming.jpg");
-
-    public UserDto getProfile() {
-        return this.testUser;
+    private final UserRepository userRepository;
+    public UserService(UserRepository userRepository){
+        this.userRepository = userRepository;
+    }
+    public UserDto getProfile(long id) {
+        return toDto(getEntity(id));
     }
 
-    public UserDto updateProfile(UpdateProfileDto updateProfileDto) {
-        if(!updateProfileDto.getProfileImage().equals(testUser.getProfileImage())){
-            testUser.setProfileImage(updateProfileDto.getProfileImage());
-        }
+    public UserDto updateProfile(long id, UpdateProfileDto updateProfileDto) {
+        User userEntity = getEntity(id);
+        userEntity.setUniversityYear(updateProfileDto.getUniversityYear());
+        userEntity.setShortBio(updateProfileDto.getShortBio());
+        userEntity.setCertificates(updateProfileDto.getCertificates());
+        userEntity.setProfileImageUrl(updateProfileDto.getProfileImage());
 
-        if(!updateProfileDto.getPassword().equals(testUser.getPassword())){
-            testUser.setPassword(updateProfileDto.getPassword());
-        }
-
-        if(!(updateProfileDto.getUniversityYear() == testUser.getUniversityYear())){
-            testUser.setUniversityYear(updateProfileDto.getUniversityYear());
-        }
-
-        if(!(updateProfileDto.getUniversityYear() == testUser.getUniversityYear())){
-            testUser.setUniversityYear(updateProfileDto.getUniversityYear());
-        }
-
-        if(!updateProfileDto.getShortBio().equals(testUser.getShortBio())){
-            testUser.setShortBio(updateProfileDto.getShortBio());
-        }
-
-        if(!updateProfileDto.getCertificates().equals(testUser.getCertificates())){
-            testUser.setCertificates(updateProfileDto.getCertificates());
-        }
-
-        return this.testUser;
+        User user = userRepository.save(userEntity);
+        return toDto(user);
     }
 
-    public UserDto deleteProfile() {
-        this.testUser = new UserDto();
-        return this.testUser;
+    public void deleteProfile(long id) {
+        userRepository.deleteById(id);
+    }
+
+    private static UserDto toDto(User user){
+        return new UserDto(user.getId(), user.getFullName(), user.getPhoneNumber(), user.getEmail(), user.getPasswordHash(), user.getUniversityName(), user.getUniversityYear(), user.getShortBio(),user.getCertificates(), user.getLinkedinUrl(), user.getProfileImageUrl());
+    }
+
+    private static User toEntity(UserDto userDto){
+        return new User(userDto.getId(), userDto.getFullName(), userDto.getPhoneNumber(), userDto.getEmail(), userDto.getPassword(), userDto.getUniversityName(), userDto.getUniversityYear(), userDto.getShortBio(), userDto.getCertificates(), userDto.getLinkedinUrl(), userDto.getProfileImage());
+    }
+
+    private User getEntity(long id){
+        Optional<User> userOptional = userRepository.findById(id);
+        if(userOptional.isPresent()){
+            return userOptional.get();
+        }
+        throw new RuntimeException("User with id:" + id + " does not exist!");
     }
 }

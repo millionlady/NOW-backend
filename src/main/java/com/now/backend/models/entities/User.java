@@ -45,17 +45,12 @@ public class User {
     @Column(name = "short_bio")
     private String shortBio;
 
+    @Column(name = "certificates")
+    private String certificates;
+
     @Column(name = "linkedin_url")
     private String linkedinUrl;
 
     @Column(name = "profile_image_url")
     private String profileImageUrl;
-
-    @CreatedDate
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private Date createdAt;
-
-    @LastModifiedDate
-    @Column(name = "updated_at")
-    private Date updatedAt;
 }
