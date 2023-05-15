@@ -24,7 +24,7 @@ public class AuthService {
 
     public User login(LoginDto loginDto) {
 
-        User user = this.userRepository.findOneByEmail(loginDto.getEmail());
+        User user = userRepository.findOneByEmail(loginDto.getEmail());
 
         if(user == null){
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "invalid credentials");
@@ -59,9 +59,8 @@ public class AuthService {
         user.setEmail(registerDto.getEmail());
         user.setPhoneNumber(registerDto.getPhoneNumber());
         user.setPasswordHash(passwordHash);
-        user.setCreatedAt(new Date());
 
-        this.userRepository.save(user);
+        userRepository.save(user);
 
         return user;
     }
