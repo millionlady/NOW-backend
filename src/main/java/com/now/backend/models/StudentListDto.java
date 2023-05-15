@@ -7,8 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class StudentList {
-    private Integer id;
+public class StudentListDto {
+    private Long id;
     private String student;
     private String joinedOn;
     private String email;
