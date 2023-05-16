@@ -21,6 +21,7 @@ public class OnboardingTest {
 
     public static Onboarding onboarding() {
         Onboarding onboarding = new Onboarding();
+        onboarding.setId(id1);
         onboarding.setUniversityYear(universityYear1);
         onboarding.setOrganization(organization1);
         onboarding.setShortBio(shortBio1);

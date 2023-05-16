@@ -19,7 +19,7 @@ public class OnboardingService {
         Onboarding entity = toEntity(onboardingDto);
         Onboarding onboarding = onboardingRepository.save(entity);
 
-        onboardingDto.setId(onboarding.getId());
+        onboardingDto.setId(entity.getId());
 
         return toDto(onboarding);
     }
