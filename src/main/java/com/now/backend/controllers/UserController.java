@@ -17,16 +17,16 @@ public class UserController {
 
     @GetMapping("/profile")
     public UserDto getProfile(){
-        return this.userService.getProfile();
+        return this.userService.getProfile(Long.valueOf(1));
     }
 
     @PutMapping("/profile")
     public UserDto updateProfile(@RequestBody UpdateProfileDto updateProfileDto){
-        return this.userService.updateProfile(updateProfileDto);
+        return this.userService.updateProfile(Long.valueOf(1), updateProfileDto);
     }
 
     @DeleteMapping("/profile")
-    public UserDto deleteProfile(){
-        return this.userService.deleteProfile();
+    public void deleteProfile(){
+        this.userService.deleteProfile(1);
     }
 }
