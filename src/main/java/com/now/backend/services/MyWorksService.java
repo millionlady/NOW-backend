@@ -18,7 +18,7 @@ public class MyWorksService {
 
     public List<MyWorksDto> getMyWorks() {
         List<MyWorksDto> MyWorksList = new ArrayList<>();
-        List<MyWorks> works = MyWorksRepository.findAll();
+        List<MyWorks> works = myWorksRepository.findAll();
         for (MyWorks work : works) {
             MyWorksList.add(new MyWorksDto(
                     work.getOpportunity(),

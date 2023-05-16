@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 public class MyWorksServiceUnitTest {
     @MockBean
-    private MyWorksRepository myWorksRepositoryRepository;
+    private MyWorksRepository myWorksRepository;
     @TestConfiguration
     static class MyWorksServiceTestConfiguration {
 
@@ -34,7 +34,7 @@ public class MyWorksServiceUnitTest {
     private MyWorksService myWorksServiceService;
     @Test
     public void givenMyWorksService_whenGetMyWorksService_thenListShouldBeFound() {
-        Mockito.when(MyWorksRepository.findAll()).thenReturn(List.of(MyWorksTest.myWorks()));
+        Mockito.when(myWorksRepository.findAll()).thenReturn(List.of(MyWorksTest.myWorks()));
 
         List<MyWorksDto> resultList = myWorksServiceService.getMyWorks();
 
@@ -43,7 +43,7 @@ public class MyWorksServiceUnitTest {
     @Test
     public void givenNoMyWorksService_whenGetMyWorksService_thenListShouldBeEmpty() {
 
-        List<MyWorksDto> resultList = MyWorksService.getMyWorks();
+        List<MyWorksDto> resultList = myWorksServiceService.getMyWorks();
 
         assertThat(resultList).isEmpty();
     }
