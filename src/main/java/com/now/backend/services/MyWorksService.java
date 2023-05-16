@@ -27,7 +27,6 @@ public class MyWorksService {
                     work.getPts(),
                     work.getStatus()));
         }
-
         return MyWorksList;
     }
 }
