@@ -21,7 +21,7 @@ public class OrgOpportunityService {
         newOpportunity.setTitle(opportunity.getTitle());
         newOpportunity.setDescription(opportunity.getDescription());
         newOpportunity.setImage(opportunity.getImage());
-        opportunityRepository.save(newOpportunity);
+        newOpportunity = opportunityRepository.save(newOpportunity);
         opportunity.setId(newOpportunity.getId());
         return opportunity;
     }
