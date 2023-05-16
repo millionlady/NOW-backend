@@ -34,7 +34,7 @@ public class Onboarding {
     private String linkedinUrl;
 
     @Column(name = "gpa")
-    private double gpa;
+    private Double gpa;
 
     @Column(name = "upload_image")
     private String uploadImage;

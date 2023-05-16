@@ -11,8 +11,8 @@ import org.springframework.validation.annotation.Validated;
 @AllArgsConstructor
 @Validated
 public class OnboardingDto {
-    private int id;
-    private int universityYear;
+    private Integer id;
+    private Integer universityYear;
     @NotNull
     private String organization;
     @NotNull
@@ -21,7 +21,7 @@ public class OnboardingDto {
     private String certificates;
     @NotNull
     private String linkedinUrl;
-    private double gpa;
+    private Double gpa;
     @NotNull
     private String uploadImage;
 }
