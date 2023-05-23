@@ -20,7 +20,7 @@ public class OrgOpportunityService {
         Opportunity newOpportunity = new Opportunity();
         newOpportunity.setTitle(opportunity.getTitle());
         newOpportunity.setDescription(opportunity.getDescription());
-        newOpportunity.setImage(opportunity.getImage());
+        newOpportunity.setImage(opportunity.getCoverImage());
         newOpportunity = opportunityRepository.save(newOpportunity);
         opportunity.setId(newOpportunity.getId());
         return opportunity;
