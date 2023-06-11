@@ -12,9 +12,10 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class OnboardingDto {
     private Integer id;
+    private Long userId;
     private Integer universityYear;
     @NotNull
-    private String organization;
+    private String universityName;
     @NotNull
     private String shortBio;
     @NotNull
@@ -23,5 +24,5 @@ public class OnboardingDto {
     private String linkedinUrl;
     private Double gpa;
     @NotNull
-    private String uploadImage;
+    private String profileImage;
 }

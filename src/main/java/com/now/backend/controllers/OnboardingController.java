@@ -5,6 +5,8 @@ import com.now.backend.models.OnboardingMetadataDto;
 import com.now.backend.repositories.OnboardingRepository;
 import com.now.backend.services.OnboardingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +31,10 @@ public class OnboardingController {
     @PostMapping
     @Validated
     public OnboardingDto postOnboarding(@RequestBody OnboardingDto onboardingDto) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Long id = Long.parseLong(auth.getPrincipal().toString());
+        onboardingDto.setUserId(id);
+
         OnboardingService onboardingService = new OnboardingService(onboardingRepository);
         return onboardingService.createOnboarding(onboardingDto);
     }

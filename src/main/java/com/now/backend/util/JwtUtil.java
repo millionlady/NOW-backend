@@ -35,8 +35,9 @@ public class JwtUtil {
                 .getBody();
     }
 
-    public String generateToken(String userName) {
+    public String generateToken(String userName, boolean isOrganization) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("isOrganization", isOrganization);
         return createToken(claims, userName);
     }
 
