@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class OrgOpportunityService {
 
@@ -16,27 +18,70 @@ public class OrgOpportunityService {
         this.opportunityRepository = opportunityRepository;
     }
 
-    public OpportunityDto createOpportunity(OpportunityDto opportunity) {
-        Opportunity newOpportunity = new Opportunity();
-        newOpportunity.setTitle(opportunity.getTitle());
-        newOpportunity.setDescription(opportunity.getDescription());
-        newOpportunity.setImage(opportunity.getCoverImage());
-        newOpportunity = opportunityRepository.save(newOpportunity);
-        opportunity.setId(newOpportunity.getId());
-        return opportunity;
+    public OpportunityDto createOpportunity(OpportunityDto opportunityDto) {
+        Opportunity entity = toEntity(opportunityDto);
+        Opportunity opportunity = opportunityRepository.save(entity);
+
+        return toDto(opportunity);
     }
     public List<OpportunityDto> getOpportunity() {
-        List<OpportunityDto> opportunityList = new ArrayList<>();
         List<Opportunity> opportunities = opportunityRepository.findAll();
+        List<OpportunityDto> result = new ArrayList<>();
         for (Opportunity opportunity : opportunities) {
-            opportunityList.add(new OpportunityDto(opportunity.getId(),opportunity.getTitle(), opportunity.getDescription(), opportunity.getImage()));
+            OpportunityDto dto = toDto(opportunity);
+            result.add(dto);
         }
-
-        return opportunityList;
+        return result;
     }
+//    public List<OpportunityDto> getOpportunity() {
+//        List<OpportunityDto> opportunityList = new ArrayList<>();
+//        List<Opportunity> opportunities = opportunityRepository.findAll();
+//        for (Opportunity opportunity : opportunities) {
+//            opportunityList.add(new OpportunityDto(opportunity.getId(),opportunity.getTitle(), opportunity.getDescription(), opportunity.getImage()));
+//        }
+//
+//        return opportunityList;
+//    }
+
+
+//    public OpportunityDto getOpportunityId(long id) {
+//        opportunityRepository.getById(id);
+//        return new OpportunityDto();
+//    }
 
     public OpportunityDto getOpportunityId(long id) {
-        opportunityRepository.getById(id);
-        return new OpportunityDto(id, "App Developer", "Design and develop the student volunteering app to make it user-friendly and easy to navigate.", "https://buildfire.com/wp-content/uploads/2017/10/become-mobile-app-developer.jpg");
+        return toDto(getEntity(id));
+    }
+
+    private Opportunity getEntity(long id) {
+        Optional<Opportunity> opportunityOptional = opportunityRepository.findById(id);
+        if (opportunityOptional.isPresent()) {
+            return opportunityOptional.get();
+        }
+
+        throw new RuntimeException("Opportunity with id:" + id + " does not exist!");
+    }
+
+    private static OpportunityDto toDto(Opportunity opportunity) {
+        OpportunityDto dto = new OpportunityDto();
+        dto.setId(opportunity.getId());
+        dto.setTitle(opportunity.getTitle());
+        dto.setDescription(opportunity.getDescription());
+        dto.setRequirements(opportunity.getRequirements());
+        dto.setStartDate(opportunity.getStartDate());
+        dto.setEndDate(opportunity.getEndDate());
+        dto.setCoverImage(opportunity.getImage());
+        return dto;
+    }
+
+    private static Opportunity toEntity(OpportunityDto opportunityDto) {
+        Opportunity opportunity = new Opportunity();
+        opportunity.setTitle(opportunityDto.getTitle());
+        opportunity.setDescription(opportunityDto.getDescription());
+        opportunity.setRequirements(opportunityDto.getRequirements());
+        opportunity.setStartDate(opportunityDto.getStartDate());
+        opportunity.setEndDate(opportunityDto.getEndDate());
+        opportunity.setImage(opportunityDto.getCoverImage());
+        return opportunity;
     }
 }

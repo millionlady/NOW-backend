@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "opportunity")
 @Getter
@@ -20,6 +22,12 @@ public class Opportunity {
     private String title;
     @Column(name = "description")
     private String description;
+    @Column(name = "requirements")
+    private String requirements;
+    @Column(name = "startDate")
+    private Date startDate;
+    @Column(name = "endDate")
+    private Date endDate;
     @Column(name = "image")
     private String image;
 }

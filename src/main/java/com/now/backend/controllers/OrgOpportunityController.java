@@ -21,7 +21,7 @@ public class OrgOpportunityController {
         return orgOpportunityService.getOpportunity();
     }
     @GetMapping(value = "/{id}")
-    public OpportunityDto getOpportunityId(@PathVariable int id) {
+    public OpportunityDto getOpportunityId(@PathVariable long id) {
         return orgOpportunityService.getOpportunityId(id);
     }
     @PostMapping

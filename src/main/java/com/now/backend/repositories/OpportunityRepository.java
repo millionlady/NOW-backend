@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface OpportunityRepository extends JpaRepository<Opportunity, Long> {
-    List<Opportunity> findAllByDescription(String description);
+    List<Opportunity> findOpportunityById(Long id);
 }
