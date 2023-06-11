@@ -1,6 +1,9 @@
 package com.now.backend.controllers;
 
+import com.now.backend.models.OpportunityApplicationWithUserDto;
 import com.now.backend.models.OpportunityDto;
+import com.now.backend.models.OpportunityResponse;
+import com.now.backend.services.OpportunityApplicationService;
 import com.now.backend.services.OpportunityService;
 import com.now.backend.services.UserService;
 import org.springframework.http.HttpStatus;
@@ -16,22 +19,35 @@ import java.util.List;
 @RestController
 public class OpportunityController {
 
-    private final OpportunityService orgOpportunityService;
+    private final OpportunityService opportunityService;
     private final UserService userService;
+    private final OpportunityApplicationService opportunityApplicationService;
 
-    public OpportunityController(OpportunityService orgOpportunityService, UserService userService) {
-        this.orgOpportunityService = orgOpportunityService;
+    public OpportunityController(OpportunityService opportunityService, UserService userService,  OpportunityApplicationService opportunityApplicationService) {
+        this.opportunityService = opportunityService;
         this.userService = userService;
+        this.opportunityApplicationService = opportunityApplicationService;
     }
 
     @GetMapping(value = "/")
     public List<OpportunityDto> getOpportunity() {
-        return orgOpportunityService.getOpportunity();
+        return opportunityService.getOpportunity();
     }
 
     @GetMapping(value = "/{id}")
-    public OpportunityDto getOpportunityId(@PathVariable int id) {
-        return orgOpportunityService.getOpportunityId(id);
+    public ResponseEntity< OpportunityResponse > getOpportunityId(@PathVariable Long id) {
+        Authentication auth =  SecurityContextHolder.getContext().getAuthentication();
+        Long authId = Long.parseLong(auth.getPrincipal().toString());
+
+        OpportunityDto opportunity = opportunityService.getOpportunityId(id);
+
+
+        if(opportunity.getOrganizationId().equals(authId)){
+            List<OpportunityApplicationWithUserDto> applications = opportunityApplicationService.getAllApplications(id);
+            return ResponseEntity.ok(new OpportunityResponse(opportunity, applications));
+        }
+
+        return ResponseEntity.ok(new OpportunityResponse(opportunity, null));
     }
 
     @PostMapping
@@ -41,7 +57,7 @@ public class OpportunityController {
 
         if(userService.isOrganization(id)){
             opportunity.setOrganizationId(id);
-            return ResponseEntity.ok(orgOpportunityService.createOpportunity(opportunity));
+            return ResponseEntity.ok(opportunityService.createOpportunity(opportunity));
         }
         throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User cant create opportunity");
     }
