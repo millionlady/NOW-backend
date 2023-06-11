@@ -7,12 +7,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 @Service
-public class OrgOpportunityService {
+public class OpportunityService {
 
     private final OpportunityRepository opportunityRepository;
 
-    public OrgOpportunityService(OpportunityRepository opportunityRepository) {
+    public OpportunityService(OpportunityRepository opportunityRepository) {
         this.opportunityRepository = opportunityRepository;
     }
 
@@ -25,18 +27,34 @@ public class OrgOpportunityService {
         opportunity.setId(newOpportunity.getId());
         return opportunity;
     }
+
     public List<OpportunityDto> getOpportunity() {
         List<OpportunityDto> opportunityList = new ArrayList<>();
         List<Opportunity> opportunities = opportunityRepository.findAll();
         for (Opportunity opportunity : opportunities) {
-            opportunityList.add(new OpportunityDto(opportunity.getId(),opportunity.getTitle(), opportunity.getDescription(), opportunity.getImage()));
+            opportunityList.add(toDto(opportunity));
         }
-
         return opportunityList;
     }
 
     public OpportunityDto getOpportunityId(long id) {
-        opportunityRepository.getById(id);
-        return new OpportunityDto(id, "App Developer", "Design and develop the student volunteering app to make it user-friendly and easy to navigate.", "https://buildfire.com/wp-content/uploads/2017/10/become-mobile-app-developer.jpg");
+        Opportunity opportunity = getEntity(id);
+        return toDto(opportunity);
+    }
+
+    private static OpportunityDto toDto(Opportunity opportunity){
+        return new OpportunityDto(opportunity.getId(), opportunity.getTitle(), opportunity.getDescription(), opportunity.getImage());
+    }
+
+    private static Opportunity toEntity(OpportunityDto opportunityDto){
+        return new Opportunity(opportunityDto.getId(), opportunityDto.getTitle(), opportunityDto.getDescription(), opportunityDto.getCoverImage());
+    }
+
+    private Opportunity getEntity(long id){
+        Optional<Opportunity> opportunityOptional = opportunityRepository.findById(id);
+        if(opportunityOptional.isPresent()){
+            return opportunityOptional.get();
+        }
+        throw new RuntimeException("Opportunity with id:" + id + " does not exist!");
     }
 }
