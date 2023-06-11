@@ -32,12 +32,12 @@ public class OpportunityServiceUnitTest {
 
         @Bean
         @Primary
-        public OrgOpportunityService orgOpportunityService(OpportunityRepository opportunityRepository) {
-            return new OrgOpportunityService(opportunityRepository);
+        public OpportunityService orgOpportunityService(OpportunityRepository opportunityRepository) {
+            return new OpportunityService(opportunityRepository);
         }
     }
     @Autowired
-    private OrgOpportunityService orgOpportunityService;
+    private OpportunityService orgOpportunityService;
     @Test
     public void givenOpportunity_whenGetOpportunity_thenListShouldBeFound() {
         Mockito.when(opportunityRepository.findAll()).thenReturn(List.of(OpportunityTest.opportunity()));

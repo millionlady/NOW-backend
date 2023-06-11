@@ -11,7 +11,4 @@ public class OpportunityDetailsDto {
    private long id;
    private String email;
    private String title;
-
-
-
 }
