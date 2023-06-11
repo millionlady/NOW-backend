@@ -1,5 +1,6 @@
 package com.now.backend.controllers;
 
+import com.now.backend.models.MyApplicationDto;
 import com.now.backend.models.OpportunityApplicationDto;
 import com.now.backend.models.OpportunityDto;
 import com.now.backend.services.OpportunityApplicationService;
@@ -10,6 +11,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 
 @RequestMapping("/opportunity-application")
 @RestController
@@ -51,5 +54,13 @@ public class OpportunityApplicationController {
         }
 
         throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Org not one that created");
+    }
+
+    @GetMapping("/my")
+    public List<MyApplicationDto> getMyWork(){
+        Authentication auth =  SecurityContextHolder.getContext().getAuthentication();
+        Long id = Long.parseLong(auth.getPrincipal().toString());
+
+        return opportunityApplicationService.getMyApplications(id);
     }
 }

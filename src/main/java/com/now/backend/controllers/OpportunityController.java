@@ -1,5 +1,6 @@
 package com.now.backend.controllers;
 
+import com.now.backend.models.OpportunityApplicationDto;
 import com.now.backend.models.OpportunityApplicationWithUserDto;
 import com.now.backend.models.OpportunityDto;
 import com.now.backend.models.OpportunityResponse;
@@ -44,10 +45,16 @@ public class OpportunityController {
 
         if(opportunity.getOrganizationId().equals(authId)){
             List<OpportunityApplicationWithUserDto> applications = opportunityApplicationService.getAllApplications(id);
-            return ResponseEntity.ok(new OpportunityResponse(opportunity, applications));
+            return ResponseEntity.ok(new OpportunityResponse(opportunity, applications, null));
         }
 
-        return ResponseEntity.ok(new OpportunityResponse(opportunity, null));
+
+        if(!userService.isOrganization(authId)){
+            OpportunityApplicationDto myApplication = opportunityApplicationService.getMyApplication(authId, id);
+            return ResponseEntity.ok(new OpportunityResponse(opportunity, null, myApplication));
+        }
+
+        return ResponseEntity.ok(new OpportunityResponse(opportunity, null, null));
     }
 
     @PostMapping
@@ -59,6 +66,8 @@ public class OpportunityController {
             opportunity.setOrganizationId(id);
             return ResponseEntity.ok(opportunityService.createOpportunity(opportunity));
         }
+
+
         throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User cant create opportunity");
     }
 }

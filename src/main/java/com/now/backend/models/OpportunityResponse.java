@@ -12,4 +12,5 @@ import java.util.List;
 public class OpportunityResponse {
     private OpportunityDto opportunityDto;
     private List<OpportunityApplicationWithUserDto> applications;
+    private OpportunityApplicationDto myApplication;
 }

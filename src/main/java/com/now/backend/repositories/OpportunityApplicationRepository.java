@@ -8,5 +8,8 @@ import java.util.List;
 public interface OpportunityApplicationRepository extends JpaRepository<OpportunityApplication, Long> {
 
     List<OpportunityApplication> findAllByOpportunityId(Long opportunityId);
+    List<OpportunityApplication> findAllByUserId(Long userId);
+    OpportunityApplication findByUserIdAndOpportunityId(Long userId, Long opportunityId);
+
 
 }

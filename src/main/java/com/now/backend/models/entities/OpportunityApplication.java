@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "opportunity_applications")
 @Getter
@@ -28,4 +30,8 @@ public class OpportunityApplication {
 
     @Column(name = "status")
     private String status;
+
+    @Column(name = "created_at")
+    private Date createdAt;
+
 }
