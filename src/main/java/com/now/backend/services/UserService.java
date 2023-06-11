@@ -33,6 +33,11 @@ public class UserService {
         return toDto(user);
     }
 
+    public UserDto getById(Long id) {
+        User user = getEntity(id);
+        return toDto(user);
+    }
+
     public boolean isOrganization(Long id) {
         User user =  getEntity(id);
         return user.isOrganization();

@@ -25,4 +25,7 @@ public class OpportunityApplication {
 
     @Column(name = "additional_info")
     private String additionalInfo;
+
+    @Column(name = "status")
+    private String status;
 }
