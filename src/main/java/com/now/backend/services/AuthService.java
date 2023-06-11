@@ -59,6 +59,7 @@ public class AuthService {
         user.setEmail(registerDto.getEmail());
         user.setPhoneNumber(registerDto.getPhoneNumber());
         user.setPasswordHash(passwordHash);
+        user.setOrganization(false);
 
         userRepository.save(user);
 

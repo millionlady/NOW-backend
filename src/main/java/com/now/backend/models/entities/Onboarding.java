@@ -18,11 +18,14 @@ public class Onboarding {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "user_id")
+    private Long userId;
+
     @Column(name = "university_year")
     private Integer universityYear;
 
-    @Column(name = "organization")
-    private String organization;
+    @Column(name = "university_name")
+    private String universityName;
 
     @Column(name = "short_bio")
     private String shortBio;
@@ -36,8 +39,8 @@ public class Onboarding {
     @Column(name = "gpa")
     private Double gpa;
 
-    @Column(name = "upload_image")
-    private String uploadImage;
+    @Column(name = "profile_img")
+    private String profileImage;
 
 }
 

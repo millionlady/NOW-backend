@@ -20,6 +20,7 @@ public class OpportunityService {
 
     public OpportunityDto createOpportunity(OpportunityDto opportunity) {
         Opportunity newOpportunity = new Opportunity();
+        newOpportunity.setOrganizationId(opportunity.getOrganizationId());
         newOpportunity.setTitle(opportunity.getTitle());
         newOpportunity.setDescription(opportunity.getDescription());
         newOpportunity.setImage(opportunity.getCoverImage());
@@ -43,11 +44,11 @@ public class OpportunityService {
     }
 
     private static OpportunityDto toDto(Opportunity opportunity){
-        return new OpportunityDto(opportunity.getId(), opportunity.getTitle(), opportunity.getDescription(), opportunity.getImage());
+        return new OpportunityDto(opportunity.getId(), opportunity.getOrganizationId(), opportunity.getTitle(), opportunity.getDescription(), opportunity.getImage());
     }
 
     private static Opportunity toEntity(OpportunityDto opportunityDto){
-        return new Opportunity(opportunityDto.getId(), opportunityDto.getTitle(), opportunityDto.getDescription(), opportunityDto.getCoverImage());
+        return new Opportunity(opportunityDto.getId(), opportunityDto.getOrganizationId(), opportunityDto.getTitle(), opportunityDto.getDescription(), opportunityDto.getCoverImage());
     }
 
     private Opportunity getEntity(long id){

@@ -1,16 +1,11 @@
 package com.now.backend.models.entities;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-
-import java.util.Date;
 
 @Entity
 @Table(name = "users")
@@ -36,21 +31,6 @@ public class User {
     @Column(name = "password_hash", nullable = false)
     private String passwordHash;
 
-    @Column(name = "university_name")
-    private String universityName;
-
-    @Column(name = "university_year")
-    private Integer universityYear;
-
-    @Column(name = "short_bio")
-    private String shortBio;
-
-    @Column(name = "certificates")
-    private String certificates;
-
-    @Column(name = "linkedin_url")
-    private String linkedinUrl;
-
-    @Column(name = "profile_image_url")
-    private String profileImageUrl;
+    @Column(name = "is_organization", nullable = false)
+    private boolean isOrganization;
 }

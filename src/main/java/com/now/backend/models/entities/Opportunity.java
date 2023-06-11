@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "opportunity")
+@Table(name = "opportunities")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -16,6 +16,8 @@ public class Opportunity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "organization_id")
+    private Long organizationId;
     @Column(name = "title")
     private String title;
     @Column(name = "description")

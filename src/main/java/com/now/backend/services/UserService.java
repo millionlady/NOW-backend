@@ -1,5 +1,7 @@
 package com.now.backend.services;
 
+import com.now.backend.models.OnboardingDto;
+import com.now.backend.models.ProfileDto;
 import com.now.backend.models.UpdateProfileDto;
 import com.now.backend.models.UserDto;
 import com.now.backend.models.entities.User;
@@ -11,11 +13,19 @@ import java.util.Optional;
 @Service
 public class UserService {
     private final UserRepository userRepository;
-    public UserService(UserRepository userRepository){
+    private final OnboardingService onboardingService;
+    public UserService(UserRepository userRepository, OnboardingService onboardingService){
         this.userRepository = userRepository;
+        this.onboardingService = onboardingService;
     }
-    public UserDto getProfile(long id) {
-        return toDto(getEntity(id));
+    public ProfileDto getProfile(long id) {
+
+        UserDto user = toDto(getEntity(id));
+        OnboardingDto onboarding = onboardingService.getOnboardingByUserId(id);
+
+        ProfileDto profileDto = new ProfileDto(user, onboarding);
+
+        return profileDto;
     }
 
     public UserDto getByEmail(String email) {
@@ -23,12 +33,13 @@ public class UserService {
         return toDto(user);
     }
 
+    public boolean isOrganization(Long id) {
+        User user =  getEntity(id);
+        return user.isOrganization();
+    }
+
     public UserDto updateProfile(long id, UpdateProfileDto updateProfileDto) {
         User userEntity = getEntity(id);
-        userEntity.setUniversityYear(updateProfileDto.getUniversityYear());
-        userEntity.setShortBio(updateProfileDto.getShortBio());
-        userEntity.setCertificates(updateProfileDto.getCertificates());
-        userEntity.setProfileImageUrl(updateProfileDto.getProfileImage());
 
         User user = userRepository.save(userEntity);
         return toDto(user);
@@ -39,11 +50,11 @@ public class UserService {
     }
 
     private static UserDto toDto(User user){
-        return new UserDto(user.getId(), user.getFullName(), user.getPhoneNumber(), user.getEmail(), user.getPasswordHash(), user.getUniversityName(), user.getUniversityYear(), user.getShortBio(),user.getCertificates(), user.getLinkedinUrl(), user.getProfileImageUrl());
+        return new UserDto(user.getId(), user.getFullName(), user.getPhoneNumber(), user.getEmail(), user.getPasswordHash(), user.isOrganization());
     }
 
     private static User toEntity(UserDto userDto){
-        return new User(userDto.getId(), userDto.getFullName(), userDto.getPhoneNumber(), userDto.getEmail(), userDto.getPassword(), userDto.getUniversityName(), userDto.getUniversityYear(), userDto.getShortBio(), userDto.getCertificates(), userDto.getLinkedinUrl(), userDto.getProfileImage());
+        return new User(userDto.getId(), userDto.getFullName(), userDto.getPhoneNumber(), userDto.getEmail(), userDto.getPassword(), userDto.isOrganization());
     }
 
     private User getEntity(long id){

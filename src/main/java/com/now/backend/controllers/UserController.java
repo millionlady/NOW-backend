@@ -1,5 +1,6 @@
 package com.now.backend.controllers;
 
+import com.now.backend.models.ProfileDto;
 import com.now.backend.models.UpdateProfileDto;
 import com.now.backend.models.UserDto;
 import com.now.backend.models.entities.User;
@@ -19,7 +20,7 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public UserDto getProfile(){
+    public ProfileDto getProfile(){
          Authentication auth =  SecurityContextHolder.getContext().getAuthentication();
          Long id = Long.parseLong(auth.getPrincipal().toString());
         return this.userService.getProfile(id);
