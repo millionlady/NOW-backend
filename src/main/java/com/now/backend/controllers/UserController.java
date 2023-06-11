@@ -2,7 +2,10 @@ package com.now.backend.controllers;
 
 import com.now.backend.models.UpdateProfileDto;
 import com.now.backend.models.UserDto;
+import com.now.backend.models.entities.User;
 import com.now.backend.services.UserService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/user")
@@ -17,16 +20,24 @@ public class UserController {
 
     @GetMapping("/profile")
     public UserDto getProfile(){
-        return this.userService.getProfile(Long.valueOf(1));
+         Authentication auth =  SecurityContextHolder.getContext().getAuthentication();
+         Long id = Long.parseLong(auth.getPrincipal().toString());
+        return this.userService.getProfile(id);
     }
 
     @PutMapping("/profile")
     public UserDto updateProfile(@RequestBody UpdateProfileDto updateProfileDto){
-        return this.userService.updateProfile(Long.valueOf(1), updateProfileDto);
+        Authentication auth =  SecurityContextHolder.getContext().getAuthentication();
+        Long id = Long.parseLong(auth.getPrincipal().toString());
+
+        return this.userService.updateProfile(Long.valueOf(id), updateProfileDto);
     }
 
     @DeleteMapping("/profile")
     public void deleteProfile(){
-        this.userService.deleteProfile(1);
+        Authentication auth =  SecurityContextHolder.getContext().getAuthentication();
+        Long id = Long.parseLong(auth.getPrincipal().toString());
+
+        this.userService.deleteProfile(id);
     }
 }

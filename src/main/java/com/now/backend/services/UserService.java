@@ -18,6 +18,11 @@ public class UserService {
         return toDto(getEntity(id));
     }
 
+    public UserDto getByEmail(String email) {
+        User user = this.userRepository.findOneByEmail(email);
+        return toDto(user);
+    }
+
     public UserDto updateProfile(long id, UpdateProfileDto updateProfileDto) {
         User userEntity = getEntity(id);
         userEntity.setUniversityYear(updateProfileDto.getUniversityYear());
