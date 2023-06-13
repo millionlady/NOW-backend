@@ -15,11 +15,6 @@ public class UserTest {
         user.setFullName("User User");
         user.setEmail("user@email.com");
         user.setPasswordHash("4aa7d14fb716955a52b6cc4ddabb0615");
-        user.setShortBio("I am test user");
-        user.setUniversityYear(1);
-        user.setProfileImageUrl("https://facebook.com/myimage.png");
-        user.setUniversityName("SSST");
-        user.setLinkedinUrl("https://linekdin.com/myprofile");
 
         return user;
     }
@@ -33,11 +28,6 @@ public class UserTest {
         user.setId(3L);
         user.setFullName("User User");
         user.setEmail("user@email.com");
-        user.setShortBio("I am test user");
-        user.setUniversityYear(1);
-        user.setProfileImage("https://facebook.com/myimage.png");
-        user.setUniversityName("SSST");
-        user.setLinkedinUrl("https://linekdin.com/myprofile");
 
         return user;
     }

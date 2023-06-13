@@ -4,6 +4,8 @@ import com.now.backend.models.OpportunityDto;
 import com.now.backend.models.entities.Opportunity;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @NoArgsConstructor
 public class OpportunityTest {
     private static Long id1 = 1L;
@@ -22,10 +24,10 @@ public class OpportunityTest {
     }
 
     public static OpportunityDto opportunityDto1() {
-        return new OpportunityDto(id1, title1, description1, image1);
+        return new OpportunityDto(id1, 1L, title1, description1, "", image1, new Date());
     }
 
     public static OpportunityDto opportunityDto2() {
-        return new OpportunityDto(3L, "Content Creator", "Create engaging and informative content for the app, including blog posts, news articles, and social media updates.", "https://www.weidert.com/hubfs/content-creator-tips-feature-image.webp");
+        return new OpportunityDto(3L, 1L, "Content Creator", "Create engaging and informative content for the app, including blog posts, news articles, and social media updates.", "https://www.weidert.com/hubfs/content-creator-tips-feature-image.webp", "", new Date());
     }
 }

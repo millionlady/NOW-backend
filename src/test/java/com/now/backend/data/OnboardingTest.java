@@ -23,12 +23,10 @@ public class OnboardingTest {
         Onboarding onboarding = new Onboarding();
         onboarding.setId(id1);
         onboarding.setUniversityYear(universityYear1);
-        onboarding.setOrganization(organization1);
         onboarding.setShortBio(shortBio1);
         onboarding.setCertificates(certificates1);
         onboarding.setLinkedinUrl(linkedinUrl1);
         onboarding.setGpa(gpa1);
-        onboarding.setUploadImage(uploadImage1);
 
         return onboarding;
     }
@@ -36,9 +34,10 @@ public class OnboardingTest {
     public static OnboardingDto onboardingDto1() {
         return new OnboardingDto(
                 id1,
+                1L,
                 universityYear1,
-                organization1,
                 shortBio1,
+                "",
                 certificates1,
                 linkedinUrl1,
                 gpa1,
@@ -48,6 +47,7 @@ public class OnboardingTest {
     public static OnboardingDto onboardingDto3() {
         return new OnboardingDto(
                 3,
+                1L,
                 3,
                 "TestOrg",
                 "TestBio",
