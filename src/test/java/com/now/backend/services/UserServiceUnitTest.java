@@ -12,6 +12,7 @@ import com.now.backend.models.ProfileDto;
 import com.now.backend.models.UpdateProfileDto;
 import com.now.backend.models.UserDto;
 import com.now.backend.models.entities.User;
+import com.now.backend.repositories.OnboardingRepository;
 import com.now.backend.repositories.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,14 +31,15 @@ public class UserServiceUnitTest {
 
     @MockBean
     private UserRepository userRepository;
-
+    @MockBean
+    private OnboardingService onboardingService;
     @TestConfiguration
     static class UserServiceTestConfiguration{
 
         @Bean
         @Primary
-        public UserService userService (UserRepository userRepository){
-            return new UserService(userRepository);
+        public UserService userService (UserRepository userRepository, OnboardingService onboardingService){
+            return new UserService(userRepository, onboardingService);
         }
     }
 

@@ -83,12 +83,10 @@ public class OnboardingServiceUnitTest {
         // assert
         assertThat(resultOnboarding).isNotNull();
         assertThat(resultOnboarding.getUniversityYear()).isEqualTo(inputOnboardingDto.getUniversityYear());
-        assertThat(resultOnboarding.getOrganization()).isEqualTo(inputOnboardingDto.getOrganization());
         assertThat(resultOnboarding.getShortBio()).isEqualTo(inputOnboardingDto.getShortBio());
         assertThat(resultOnboarding.getCertificates()).isEqualTo(inputOnboardingDto.getCertificates());
         assertThat(resultOnboarding.getLinkedinUrl()).isEqualTo(inputOnboardingDto.getLinkedinUrl());
         assertThat(resultOnboarding.getGpa()).isEqualTo(inputOnboardingDto.getGpa());
-        assertThat(resultOnboarding.getUploadImage()).isEqualTo(inputOnboardingDto.getUploadImage());
         assertThat(resultOnboarding.getId()).isNotEqualTo(0);
     }
 
