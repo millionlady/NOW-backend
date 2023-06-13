@@ -10,4 +10,6 @@ import lombok.Setter;
 public class OpportunityApplicationWithUserDto {
     private OpportunityApplicationDto application;
     private UserDto user;
+    private OnboardingDto onboarding;
+
 }

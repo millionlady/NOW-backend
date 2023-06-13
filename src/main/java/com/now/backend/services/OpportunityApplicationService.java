@@ -18,10 +18,13 @@ public class OpportunityApplicationService {
     private final UserService userService;
     private final OpportunityService opportunityService;
 
-    public OpportunityApplicationService(OpportunityApplicationRepository opportunityApplicationRepository, UserService userService, OpportunityService opportunityService) {
+    private final OnboardingService onboardingService;
+
+    public OpportunityApplicationService(OpportunityApplicationRepository opportunityApplicationRepository, UserService userService, OpportunityService opportunityService,  OnboardingService onboardingService) {
         this.opportunityApplicationRepository = opportunityApplicationRepository;
         this.userService = userService;
         this.opportunityService = opportunityService;
+        this.onboardingService = onboardingService;
     }
 
     public OpportunityApplicationDto createApplication(OpportunityApplicationDto opportunityApplicationDto) {
@@ -65,13 +68,21 @@ public class OpportunityApplicationService {
         return toDto(myApplication);
     }
 
+    public OpportunityApplicationDto getById(Long applicationId) {
+
+        OpportunityApplication myApplication = getEntity(applicationId);
+
+        return toDto(myApplication);
+    }
+
     public List<OpportunityApplicationWithUserDto> getAllApplications(Long opportunityId) {
 
         List<OpportunityApplicationWithUserDto> opportunityWithApplications = new ArrayList<>();
         List<OpportunityApplication> applications = opportunityApplicationRepository.findAllByOpportunityId(opportunityId);
         for (OpportunityApplication application : applications) {
             UserDto user = this.userService.getById(application.getUserId());
-            opportunityWithApplications.add(new OpportunityApplicationWithUserDto(toDto(application), user));
+            OnboardingDto onboarding = onboardingService.getOnboardingByUserId(user.getId());
+            opportunityWithApplications.add(new OpportunityApplicationWithUserDto(toDto(application), user, onboarding));
         }
         return opportunityWithApplications;
     }
@@ -84,6 +95,9 @@ public class OpportunityApplicationService {
     }
 
     private static OpportunityApplicationDto toDto(OpportunityApplication opportunityApplication){
+        if(opportunityApplication == null){
+            return null;
+        }
         return new OpportunityApplicationDto(opportunityApplication.getId(),opportunityApplication.getUserId(), opportunityApplication.getOpportunityId(), opportunityApplication.getAdditionalInfo(), opportunityApplication.getStatus(), opportunityApplication.getCreatedAt());
     }
 

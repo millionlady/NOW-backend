@@ -1,9 +1,6 @@
 package com.now.backend.controllers;
 
-import com.now.backend.models.OpportunityApplicationDto;
-import com.now.backend.models.OpportunityApplicationWithUserDto;
-import com.now.backend.models.OpportunityDto;
-import com.now.backend.models.OpportunityResponse;
+import com.now.backend.models.*;
 import com.now.backend.services.OpportunityApplicationService;
 import com.now.backend.services.OpportunityService;
 import com.now.backend.services.UserService;
@@ -32,6 +29,15 @@ public class OpportunityController {
 
     @GetMapping(value = "/")
     public List<OpportunityDto> getOpportunity() {
+        Authentication auth =  SecurityContextHolder.getContext().getAuthentication();
+        Long authId = Long.parseLong(auth.getPrincipal().toString());
+
+        UserDto user = this.userService.getById(authId);
+
+        if(user.isOrganization()){
+            return opportunityService.getOpportunityByOrgId(authId);
+        }
+
         return opportunityService.getOpportunity();
     }
 
@@ -41,20 +47,20 @@ public class OpportunityController {
         Long authId = Long.parseLong(auth.getPrincipal().toString());
 
         OpportunityDto opportunity = opportunityService.getOpportunityId(id);
-
+        UserDto org = userService.getById(opportunity.getOrganizationId());
 
         if(opportunity.getOrganizationId().equals(authId)){
             List<OpportunityApplicationWithUserDto> applications = opportunityApplicationService.getAllApplications(id);
-            return ResponseEntity.ok(new OpportunityResponse(opportunity, applications, null));
+            return ResponseEntity.ok(new OpportunityResponse(opportunity, applications, null, org));
         }
 
 
         if(!userService.isOrganization(authId)){
             OpportunityApplicationDto myApplication = opportunityApplicationService.getMyApplication(authId, id);
-            return ResponseEntity.ok(new OpportunityResponse(opportunity, null, myApplication));
+            return ResponseEntity.ok(new OpportunityResponse(opportunity, null, myApplication, org));
         }
 
-        return ResponseEntity.ok(new OpportunityResponse(opportunity, null, null));
+        return ResponseEntity.ok(new OpportunityResponse(opportunity, null, null, org));
     }
 
     @PostMapping

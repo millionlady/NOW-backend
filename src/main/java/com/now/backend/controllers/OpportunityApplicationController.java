@@ -36,7 +36,9 @@ public class OpportunityApplicationController {
         Authentication auth =  SecurityContextHolder.getContext().getAuthentication();
         Long orgId = Long.parseLong(auth.getPrincipal().toString());
 
-        OpportunityDto opportunity = opportunityService.getOpportunityId(id);
+        OpportunityApplicationDto opportunityApplication = opportunityApplicationService.getById(id);
+        OpportunityDto opportunity = opportunityService.getOpportunityId(opportunityApplication.getOpportunityId());
+
         if(opportunity.getOrganizationId().equals(orgId)){
             return opportunityApplicationService.setStatus(id, "Accepted");
         }
@@ -48,7 +50,10 @@ public class OpportunityApplicationController {
     public OpportunityApplicationDto rejectApplication(@PathVariable Long id){
         Authentication auth =  SecurityContextHolder.getContext().getAuthentication();
         Long orgId = Long.parseLong(auth.getPrincipal().toString());
-        OpportunityDto opportunity = opportunityService.getOpportunityId(id);
+
+        OpportunityApplicationDto opportunityApplication = opportunityApplicationService.getById(id);
+        OpportunityDto opportunity = opportunityService.getOpportunityId(opportunityApplication.getOpportunityId());
+
         if(opportunity.getOrganizationId().equals(orgId)) {
             return opportunityApplicationService.setStatus(id, "Rejected");
         }

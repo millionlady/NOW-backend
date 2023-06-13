@@ -5,9 +5,13 @@ import com.now.backend.models.UpdateProfileDto;
 import com.now.backend.models.UserDto;
 import com.now.backend.models.entities.User;
 import com.now.backend.services.UserService;
+import org.apache.coyote.Response;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 @RequestMapping("/user")
 @RestController
@@ -24,6 +28,19 @@ public class UserController {
          Authentication auth =  SecurityContextHolder.getContext().getAuthentication();
          Long id = Long.parseLong(auth.getPrincipal().toString());
         return this.userService.getProfile(id);
+    }
+
+    @GetMapping("/profile/{id}")
+    public ProfileDto getProfileById(@PathVariable Long id){
+        Authentication auth =  SecurityContextHolder.getContext().getAuthentication();
+        Long authId = Long.parseLong(auth.getPrincipal().toString());
+        UserDto user = userService.getById(authId);
+
+        if(user.isOrganization()){
+            return this.userService.getProfile(id);
+
+        }
+        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User cant get other profiles");
     }
 
     @PutMapping("/profile")

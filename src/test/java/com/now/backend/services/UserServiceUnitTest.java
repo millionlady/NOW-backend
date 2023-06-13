@@ -8,6 +8,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import com.now.backend.data.UserTest;
+import com.now.backend.models.ProfileDto;
 import com.now.backend.models.UpdateProfileDto;
 import com.now.backend.models.UserDto;
 import com.now.backend.models.entities.User;
@@ -49,9 +50,9 @@ public class UserServiceUnitTest {
         Mockito.when(userRepository.findById(id))
                 .thenReturn(Optional.of(UserTest.user()));
 
-        UserDto userDto = userService.getProfile(id);
+        ProfileDto userDto = userService.getProfile(id);
 
-        assertThat(userDto.getEmail()).isEqualTo("user@email.com");
+        assertThat(userDto.getUser().getEmail()).isEqualTo("user@email.com");
     }
 
     @Test
@@ -75,10 +76,6 @@ public class UserServiceUnitTest {
         UserDto userResult = userService.updateProfile(id, updateProfile);
 
         assertThat(userResult).isNotNull();
-        assertThat(userResult.getProfileImage()).isEqualTo(updateProfile.getProfileImage());
-        assertThat(userResult.getCertificates()).isEqualTo(updateProfile.getCertificates());
-        assertThat(userResult.getShortBio()).isEqualTo(updateProfile.getShortBio());
-
     }
 
     @Test

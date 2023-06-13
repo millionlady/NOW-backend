@@ -13,4 +13,5 @@ public class OpportunityResponse {
     private OpportunityDto opportunityDto;
     private List<OpportunityApplicationWithUserDto> applications;
     private OpportunityApplicationDto myApplication;
+    private UserDto organization;
 }

@@ -15,12 +15,10 @@ import org.springframework.web.bind.annotation.*;
 
 public class OnboardingController {
     private final OnboardingService onboardingService;
-    private final OnboardingRepository onboardingRepository;
 
     @Autowired
     public OnboardingController(OnboardingService onboardingService, OnboardingRepository onboardingRepository) {
         this.onboardingService = onboardingService;
-        this.onboardingRepository = onboardingRepository;
     }
 
     @GetMapping
@@ -35,7 +33,6 @@ public class OnboardingController {
         Long id = Long.parseLong(auth.getPrincipal().toString());
         onboardingDto.setUserId(id);
 
-        OnboardingService onboardingService = new OnboardingService(onboardingRepository);
         return onboardingService.createOnboarding(onboardingDto);
     }
 }

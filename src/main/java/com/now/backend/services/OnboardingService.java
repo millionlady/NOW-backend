@@ -19,11 +19,16 @@ public class OnboardingService {
 
     public OnboardingDto createOnboarding(OnboardingDto onboardingDto) {
         Onboarding entity = toEntity(onboardingDto);
-        Onboarding onboarding = onboardingRepository.save(entity);
 
+        Optional<Onboarding> onboarding = onboardingRepository.findOneByUserId(onboardingDto.getUserId());
+        if(onboarding.isPresent()){
+           entity.setId(onboarding.get().getId());
+        }
+
+        Onboarding newOnboarding = onboardingRepository.save(entity);
         onboardingDto.setId(entity.getId());
 
-        return toDto(onboarding);
+        return toDto(newOnboarding);
     }
 
     public OnboardingDto getOnboardingByUserId(Long userId) {
@@ -39,6 +44,9 @@ public class OnboardingService {
     }
 
     private static OnboardingDto toDto(Onboarding onboarding) {
+        if(onboarding == null){
+            return null;
+        }
         return new OnboardingDto(onboarding.getId(),
                 onboarding.getUserId(),
                 onboarding.getUniversityYear(),
@@ -70,6 +78,7 @@ public class OnboardingService {
         if(onboarding.isPresent()){
             return onboarding.get();
         }
-        throw new RuntimeException("Onboarding with id:" + id + " does not exist!");
+//        throw new RuntimeException("Onboarding with id:" + id + " does not exist!");
+        return null;
     }
 }
