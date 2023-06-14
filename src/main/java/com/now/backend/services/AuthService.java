@@ -41,7 +41,6 @@ public class AuthService {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "invalid credentials");
         }
 
-        // Add password check
         return user;
     }
 
