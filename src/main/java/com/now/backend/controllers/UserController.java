@@ -27,6 +27,7 @@ public class UserController {
     public ProfileDto getProfile(){
          Authentication auth =  SecurityContextHolder.getContext().getAuthentication();
          Long id = Long.parseLong(auth.getPrincipal().toString());
+
         return this.userService.getProfile(id);
     }
 
